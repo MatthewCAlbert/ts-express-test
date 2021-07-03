@@ -1,4 +1,5 @@
 import fs from "fs";
+import logger from "../lib/logger";
 import path from "path";
 
 const pubkey_path = path.join(__dirname, "..", "..", "id_rsa_pub.pem");
@@ -18,9 +19,15 @@ export const SESSION_SECRET = process.env["SESSION_SECRET"];
 export const MONGODB_URI = prod ? process.env["MONGODB_STRING_PROD"] : process.env["MONGODB_STRING_DEV"];
 
 if (!SESSION_SECRET) {
+    logger.error("No client secret. Set SESSION_SECRET environment variable.");
     process.exit(1);
 }
 
 if (!MONGODB_URI) {
+    if (prod) {
+        logger.error("No mongo connection string. Set MONGODB_URI environment variable.");
+    } else {
+        logger.error("No mongo connection string. Set MONGODB_URI_LOCAL environment variable.");
+    }
     process.exit(1);
 }

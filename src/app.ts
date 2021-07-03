@@ -4,7 +4,6 @@ require("dotenv").config();
 
 import path from "path";
 import express from "express";
-import sass from "node-sass-middleware";
 import cookieParser from "cookie-parser";
 import passport from "passport";
 import strategy from "./config/passport";
@@ -31,18 +30,6 @@ app.use(cookieParser());
 app.use("/", require("./routes/web.routes"));
 app.use("/api/v1", require("./routes/api.routes"));
 
-// Watch and compile sass on dev
-if (process.env.NODE_ENV === "development") {
-  app.use(
-    sass({
-      src: "../public/scss",
-      dest: "../public",
-      outputStyle: "compressed",
-      debug: true,
-    })
-  );
-}
-
 // Attach public folder
 app.use(express.static(__dirname + "/public"));
 
@@ -50,11 +37,6 @@ app.use(express.static(__dirname + "/public"));
 app.set("trust proxy", true);
 
 // Init Session
-declare module 'express-session' {
-  interface SessionData {
-    dToken?: String
-  }
-}
 app.use(session({
   secret: SESSION_SECRET,
   resave: false,
