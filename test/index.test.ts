@@ -7,7 +7,7 @@ describe("GET /api/v1", function () {
     it("should return 200 OK and Hello World", (done) => {
       request.get('/api/v1').then( (response)=>{
           expect(response.status).toBe(200);
-          expect(response.body.message).toBe('Hello World!');
+          expect(response.body.message).toMatch('Hello World!');
           done();
         }
       )
