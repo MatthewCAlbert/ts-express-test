@@ -11,10 +11,6 @@ import { SESSION_SECRET } from "./lib/secrets";
 import session from "express-session";
 
 const app = express();
-
-// Connect DB
-require("./config/database");
-
 passport.use(strategy);
 
 //setup
