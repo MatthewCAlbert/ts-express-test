@@ -25,8 +25,8 @@ jobs:
       - name: npm install, build, and test
         run: |
           npm ci
-          npm run test --if-present
           npm run key:generate --if-present
+          npm run test --if-present
           npm run build --if-present
         env:
           CI: true
