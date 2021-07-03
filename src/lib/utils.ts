@@ -1,10 +1,6 @@
 import crypto from 'crypto';
 import jsonwebtoken from 'jsonwebtoken';
-import fs from 'fs';
-import path from 'path';
-
-const pathToKey = path.join(__dirname, "..", "..", "id_rsa_priv.pem");
-const PRIV_KEY = fs.readFileSync(pathToKey, "utf8");
+import { PRIV_KEY } from './secrets';
 
 /**
  * -------------- HELPER FUNCTIONS ----------------

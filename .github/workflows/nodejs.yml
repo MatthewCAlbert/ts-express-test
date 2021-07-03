@@ -2,26 +2,41 @@ name: Node CI
 
 on: [push, pull_request]
 
+env: # <--- here
+  NODE_ENV: "development"
+  SESSION_SECRET: "pQ5xSZsWfXUzDqKZU5"
+  MONGODB_STRING_PROD: ${{secrets.MONGODB_STRING_DEV}}
+  MONGODB_STRING_DEV: ${{secrets.MONGODB_STRING_DEV}}
+
 jobs:
   build-node:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v1
+
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
+
       - name: Get npm cache directory
         id: npm-cache
         run: |
           echo "::set-output name=dir::$(npm config get cache)"
+
       - uses: actions/cache@v1
         with:
           path: ${{ steps.npm-cache.outputs.dir }}
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+
+      - name: Prepare Environment
+        uses: CallePuzzle/envvar-to-dotenv-action@v1.0.0
+        with:
+          variableNames: NODE_ENV,MONGODB_STRING_DEV,MONGODB_STRING_PROD,SESSION_SECRET
+
       - name: npm install, build, and test
         run: |
           npm ci

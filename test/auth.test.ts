@@ -75,16 +75,16 @@ describe("Auth Activity", () => {
     });
 
     // Destroy User
-    // it("Destroy user", async () => {
+    it("Destroy user", async () => {
     
-    //     request.delete(`/api/v1/user/${userData.username}`).then( (response)=>{
-    //         expect(response.status).toBe(200);
-    //         const {success, message} = response.body;
-    //         expect(success).toBe(true);
-    //         expect(message).toMatch("User deleted!");
-    //         }
-    //     )
+        request.delete(`/api/v1/user/${userData.username}`).then( (response)=>{
+            expect(response.status).toBe(200);
+            const {success, message} = response.body;
+            expect(success).toBe(true);
+            expect(message).toMatch("User deleted!");
+            }
+        )
 
-    // });
+    });
 
 });

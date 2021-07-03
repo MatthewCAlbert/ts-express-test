@@ -5,7 +5,7 @@
   "main": "./dist/server.js",
   "scripts": {
     "start": "node .",
-    "start:dev": "nodemon dist/index.js",
+    "start:dev": "nodemon dist/server.js",
     "build-ts": "tsc",
     "build": "yarn run build-ts",
     "build:dev": "tsc --watch --preserveWatchOutput",
@@ -23,6 +23,7 @@
     "dotenv": "^8.2.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "express-session": "^1.17.2",
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.13",
@@ -36,6 +37,7 @@
   "devDependencies": {
     "@types/eslint": "^7.2.13",
     "@types/express": "^4.17.12",
+    "@types/express-session": "^1.17.3",
     "@types/jest": "^26.0.23",
     "@types/jsonwebtoken": "^8.5.3",
     "@types/passport": "^1.0.6",
