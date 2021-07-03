@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node .",
     "start:dev": "nodemon dist/index.js",
-    "build": "babel --delete-dir-on-start --out-dir dist --copy-files --ignore \"**/__tests__/**,**/__mocks__/**\" --no-copy-ignored src",
+    "build-ts": "tsc",
+    "build": "yarn run build-ts",
     "build:dev": "tsc --watch --preserveWatchOutput",
     "dev": "concurrently \"yarn:build:dev\" \"yarn:start:dev\"",
     "key:generate": "node ./generateKeypair.js",
