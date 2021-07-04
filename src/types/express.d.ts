@@ -1,5 +1,9 @@
-import express = require('express');
+import express from "express";
 import jwt from 'jsonwebtoken';
-export interface AuthRequest extends express.Request{
-   user?: jwt.JwtPayload
+import { UserDocument } from '../models/User';
+
+declare module "express" {
+    export interface Request {
+      user?: jwt.JwtPayload & UserDocument
+    }
 }
