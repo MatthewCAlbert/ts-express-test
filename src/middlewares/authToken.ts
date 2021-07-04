@@ -1,8 +1,7 @@
 import jwt from 'jsonwebtoken';
 import express from 'express';
-import {AuthRequest} from '../types/express';
 
-const authToken = (req: AuthRequest, res: express.Response, next: express.NextFunction) => {
+const authToken = (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const authHeader = req.headers["authorization"];
   const token: string|undefined = authHeader && authHeader.split(" ")[1];
   if (token === null) return res.sendStatus(401);

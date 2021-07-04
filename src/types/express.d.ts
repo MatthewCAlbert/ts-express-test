@@ -4,6 +4,6 @@ import { UserDocument } from '../models/User';
 
 declare module "express" {
     export interface Request {
-      user?: jwt.JwtPayload & UserDocument
+      user?: jwt.JwtPayload | UserDocument
     }
 }
