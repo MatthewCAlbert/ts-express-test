@@ -4,6 +4,10 @@ import utils from '../lib/utils';
 
 class AuthController {
 
+  static check(req: express.Request, res: express.Response): void {
+    res.status(200).json({success: true, data: req.user});
+  }
+
   static login(req: express.Request, res: express.Response, next: express.NextFunction): void {
     User.findOne({username: req.body.username})
     .then((user)=>{
@@ -51,9 +55,9 @@ class AuthController {
    .then(user=>{
     const jwt = utils.issueJWT(user);
 
-     res.json({success: true, user: user, token: jwt.token, expiresIn: jwt.expires})
+     res.json({success: true, data: user, token: jwt.token, expiresIn: jwt.expires})
    })
-    .catch(err=>res.status(500).json({success:false, user: null, error: err}));
+    .catch(err=>res.status(500).json({success:false, data: null, error: err}));
   }
 }
 
