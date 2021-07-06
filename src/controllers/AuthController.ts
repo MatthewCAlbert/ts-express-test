@@ -16,9 +16,9 @@ class AuthController {
       if(isValid){
         const tokenObj = utils.issueJWT(user);
 
-        res.status(200).json({success:true, token: tokenObj.token, expiresIn: tokenObj.expires});
+        res.status(200).json({success:true, data:user, token: tokenObj.token, expiresIn: tokenObj.expires});
       }else
-        res.status(401).json({success:false, msg: "wrong password"});
+        res.status(401).json({success:false, data: null, expiresIn: null, token: null, message: "wrong password"});
     })
     .catch(err=>res.status(500).json({success:false, error: err}));
   }
@@ -32,7 +32,7 @@ class AuthController {
     User.findOneAndDelete({username: username}).then(() =>
       res.send(200).json({success: true, message: "User deleted!"})
     )
-    .catch(err=>res.status(500).json({success:false, error: err}));
+    .catch(err=>res.status(500).json({success:false, message:"Failed", error: err}));
   }
 
   static register(req: express.Request, res: express.Response, next: express.NextFunction): void {
@@ -53,7 +53,7 @@ class AuthController {
 
      res.json({success: true, user: user, token: jwt.token, expiresIn: jwt.expires})
    })
-    .catch(err=>res.status(500).json({success:false, error: err}));
+    .catch(err=>res.status(500).json({success:false, user: null, error: err}));
   }
 }
 
