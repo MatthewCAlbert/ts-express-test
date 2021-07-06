@@ -22,6 +22,7 @@ apiRouter.get("/auth/check", passportOption, AuthController.check);
 apiRouter.post("/login", validator(authSchemas.login), AuthController.login);
 // apiRouter.post("/logout", AuthController.logout);
 apiRouter.post("/register", validator(authSchemas.register), AuthController.register);
+apiRouter.put("/users/change-password", validator(authSchemas.changePassword), passportOption, AuthController.changePassword);
 apiRouter.delete("/user/:username", AuthController.destory);
 
 // Note Routes

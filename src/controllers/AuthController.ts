@@ -28,7 +28,32 @@ class AuthController {
   }
 
   static logout(req: express.Request, res: express.Response): void {
+    // TODO: Invalidate JWT
    res.send("Hello World!"); 
+  }
+
+  static changePassword(req: express.Request, res: express.Response): void {
+    let user = req.user;
+
+    const isValid = utils.validPassword(req.body.oldPassword, user.hash, user.salt);
+
+    if( !isValid ){
+      res.status(401).json({success:false, data: null, token: null});
+      return;
+    }
+
+    const saltHash = utils.genPassword(req.body.newPassword);
+    const salt = saltHash.salt;
+    const hash = saltHash.hash;
+    const update = {salt, hash};
+
+    User.findOneAndUpdate({_id: user._id}, update)
+    .then((userUpdated) => {
+      const tokenObj = utils.issueJWT(userUpdated);
+      res.status(200).json({success:true, data:user, token: tokenObj.token, expiresIn: tokenObj.expires});
+    }
+    )
+    .catch(err=>res.status(500).json({success:false, message:"Password change failed", error: err}));
   }
 
   static destory(req: express.Request, res: express.Response, next: express.NextFunction): void {
