@@ -14,10 +14,10 @@ const UserSchema = new mongoose.Schema<UserDocument>(
     username: {type: String, unique: true},
     hash: String,
     salt: String,
-    password: String
+    password: String,
   },
   {
-    timestamps: true,
+    timestamps: { currentTime: () => Math.floor(Date.now() + parseInt(process.env.UTC_OFFSET)*3600*1000) },
     collection: "users",
   }
 );

@@ -15,7 +15,7 @@ const NoteSchema = new mongoose.Schema<NoteDocument>(
     content: String,
   },
   {
-    timestamps: true,
+    timestamps: { currentTime: () => Math.floor(Date.now() + parseInt(process.env.UTC_OFFSET)*3600*1000) },
     collection: "notes",
   }
 );
