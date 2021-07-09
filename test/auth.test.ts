@@ -3,7 +3,6 @@ import { nanoid } from "nanoid";
 import { connect } from "../src/config/database";
 import supertest from "supertest";
 import app from "../src/app";
-import User from "../src/models/User";
 
 const request = supertest(app);
 

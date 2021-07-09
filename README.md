@@ -10,5 +10,3 @@
 
 ## Still doesn't work
 - Custom Session Variables
-- Jest with Mongoose always error
-- You are trying to `import` a file after the Jest environment has been torn down
