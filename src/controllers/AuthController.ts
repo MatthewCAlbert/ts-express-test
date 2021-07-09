@@ -8,7 +8,7 @@ class AuthController {
     res.status(200).json({success: true, data: req.user});
   }
 
-  static login(req: express.Request, res: express.Response, next: express.NextFunction): void {
+  static login(req: express.Request, res: express.Response): void {
     User.findOne({username: req.body.username})
     .then((user)=>{
       if(!user){
@@ -56,15 +56,15 @@ class AuthController {
     .catch(err=>res.status(500).json({success:false, message:"Password change failed", error: err}));
   }
 
-  static destory(req: express.Request, res: express.Response, next: express.NextFunction): void {
+  static destory(req: express.Request, res: express.Response): void {
    const {username} = req.params;
     User.findOneAndDelete({username: username}).then(() =>
-      res.send(200).json({success: true, message: "User deleted!"})
+      res.status(200).json({success: true, message: "User deleted!"})
     )
     .catch(err=>res.status(500).json({success:false, message:"Failed", error: err}));
   }
 
-  static register(req: express.Request, res: express.Response, next: express.NextFunction): void {
+  static register(req: express.Request, res: express.Response): void {
    const saltHash = utils.genPassword(req.body.password);
 
    const salt = saltHash.salt;
